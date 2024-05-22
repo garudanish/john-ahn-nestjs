@@ -8,6 +8,7 @@ import {
   Patch,
   UsePipes,
   ValidationPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './boards.model';
@@ -30,7 +31,13 @@ export class BoardsController {
 
   @Get('/:id')
   getBoardById(@Param('id') id: string): Board {
-    return this.boardsService.getBoardById(id);
+    const found = this.boardsService.getBoardById(id);
+
+    if (!found) {
+      throw new NotFoundException(`Can't find board with id: ${id}`);
+    }
+
+    return found;
   }
 
   @Delete('/:id')
