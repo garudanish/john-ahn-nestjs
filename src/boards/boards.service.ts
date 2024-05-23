@@ -23,6 +23,10 @@ export class BoardsService {
     return found;
   }
 
+  createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    return this.boardRepository.createBoard(createBoardDto);
+  }
+
   // getAllBoards(): Board[] {
   //   return this.boards;
   // }
