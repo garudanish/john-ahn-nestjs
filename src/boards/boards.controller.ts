@@ -8,7 +8,6 @@ import {
   Patch,
   UsePipes,
   ValidationPipe,
-  NotFoundException,
   ParseIntPipe,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
@@ -20,6 +19,11 @@ import { Board } from './board.entity';
 @Controller('boards')
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
+
+  @Get()
+  getAllBoards(): Promise<Board[]> {
+    return this.boardsService.getAllBoards();
+  }
 
   @Post()
   @UsePipes(ValidationPipe)
@@ -44,8 +48,4 @@ export class BoardsController {
   ): Promise<Board> {
     return this.boardsService.updateBoardStatus(id, status);
   }
-  // @Get()
-  // getAllBoards(): Board[] {
-  //   return this.boardsService.getAllBoards();
-  // }
 }
