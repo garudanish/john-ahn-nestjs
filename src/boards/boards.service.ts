@@ -27,26 +27,16 @@ export class BoardsService {
     return this.boardRepository.createBoard(createBoardDto);
   }
 
+  async deleteBoard(id: number): Promise<void> {
+    const result = await this.boardRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Can't find Board with id: ${id}`);
+    }
+  }
+
   // getAllBoards(): Board[] {
   //   return this.boards;
-  // }
-  // createBoard(createBoardDto: CreateBoardDto): Board {
-  //   const { title, description } = createBoardDto;
-  //   const board: Board = {
-  //     id: uuid(),
-  //     title,
-  //     description,
-  //     status: BoardStatus.PUBLIC,
-  //   };
-  //   this.boards.push(board);
-  //   return board;
-  // }
-  // getBoardById(id: string): Board {
-  //   return this.boards.find((board) => board.id === id);
-  // }
-  // deleteBoard(id: string): void {
-  //   const found = this.getBoardById(id);
-  //   this.boards = this.boards.filter((board) => board.id !== found.id);
   // }
   // updateBoardStatus(id: string, status: BoardStatus): Board {
   //   const board = this.getBoardById(id);

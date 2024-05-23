@@ -9,6 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
   NotFoundException,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { BoardStatus } from './board-status.enum';
@@ -27,29 +28,18 @@ export class BoardsController {
   }
 
   @Get('/:id')
-  getBoardById(@Param('id') id: number): Promise<Board> {
+  getBoardById(@Param('id', ParseIntPipe) id): Promise<Board> {
     return this.boardsService.getBoardById(id);
+  }
+
+  @Delete('/:id')
+  deleteBoard(@Param('id', ParseIntPipe) id): Promise<void> {
+    return this.boardsService.deleteBoard(id);
   }
 
   // @Get()
   // getAllBoards(): Board[] {
   //   return this.boardsService.getAllBoards();
-  // }
-
-  // @Get('/:id')
-  // getBoardById(@Param('id') id: string): Board {
-  //   const found = this.boardsService.getBoardById(id);
-
-  //   if (!found) {
-  //     throw new NotFoundException(`Can't find board with id: ${id}`);
-  //   }
-
-  //   return found;
-  // }
-
-  // @Delete('/:id')
-  // deleteBoard(@Param('id') id: string): void {
-  //   this.boardsService.deleteBoard(id);
   // }
 
   // @Patch('/:id/status')
