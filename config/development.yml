@@ -1,0 +1,8 @@
+db:
+  host: 'localhost'
+  username: 'boards'
+  password: 'postgres'
+  synchronize: true
+
+jwt:
+  secret: 'g8mMkDYaxZwd2PJrcDvAzFJ1n6sqkgeX'
